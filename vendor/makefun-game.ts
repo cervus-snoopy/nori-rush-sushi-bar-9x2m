@@ -237,8 +237,7 @@ function gameCapsOf(caps: GameCaps, who: string): Record<keyof GameCaps, number>
 export function classifyGamePath(path: string): GameFileClass {
   const segs = path.split('/');
   const base = segs[segs.length - 1] ?? '';
-
-const dirs = segs.slice(0, -1);
+    const dirs = segs.slice(0, -1);
   if (dirs.includes('vendor') || GENERATED_NAME.test(base)) return 'vendored';
   return SOURCE_NAME.test(base) ? 'source' : 'asset';
 }
@@ -554,7 +553,8 @@ export function importMapOf(facts: HtmlFacts): ImportMapRead {
   if (facts.importMaps.length > 1) return { map: null, error: `index.html holds ${facts.importMaps.length} import maps: a page holds one at most` };
   const only = facts.importMaps[0]!;
   if (only.error !== null) return { map: null, error: `index.html's import map is not JSON (${only.error})` };
-  if (!isObject(only.value)) return { map: null, error: 'index.html\'s import map is not a JSON object' };  const importsRaw = only.value.imports ?? {};
+  if (!isObject(only.value)) return { map: null, error: 'index.html\'s import map is not a JSON object' };
+    const importsRaw = only.value.imports ?? {};
   if (!isObject(importsRaw)) return { map: null, error: 'index.html\'s import map holds an "imports" that is not an object' };
   const imports: Record<string, string | null> = {};
   for (const [key, value] of Object.entries(importsRaw)) {
@@ -957,7 +957,7 @@ export function importOrder(sources: readonly GameSource[], facts: HtmlFacts): s
  */
 export function canonicalJson(value: unknown): string {
   if (value === null || typeof value === 'boolean' || typeof value === 'string') return JSON.stringify(value);
-    if (typeof value === 'number') {
+    iftypeof value === 'number') {
     if (!Number.isFinite(value)) throw new TypeError(`canonicalJson: ${value} is not a finite number`);
     return JSON.stringify(value);
   }
